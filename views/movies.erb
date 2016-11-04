@@ -1,0 +1,6 @@
+
+<div>
+<% @movies.each do |movie| %>
+  <img src=<%=movie[:poster] %> style="width: 200px;height: auto;" alt=<%=movie[:name]%>>
+<% end %>
+</div>
