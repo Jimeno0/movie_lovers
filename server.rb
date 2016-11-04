@@ -7,20 +7,23 @@ require_relative 'lib/movies'
 set :haml, format: :html5
 enable(:sessions)
 
-get '/' do
-  erb(:index)
-end
-
-post '/get_movies' do
-  search = Movies.search_movie(params[:title])
-  session[:movies] = Movies.get_posters(search,9)
-  session[:year] = Movies.get_random_movie_year(search,9)
-  redirect to('/movies')
-
-end 
+@@words = ['funny','stars','scary','lion']
+@@score = 0
 
 get('/movies') do
-  @movies = session[:movies]
-  @year = session[:year]
+  last_word = @@words.sample
+  @@words.delete_if{|word| word == last_word}
+  search = Movies.search_movie(last_word)
+  @score = @@score
+  @@score+=1
+  @movies = Movies.get_posters(search,9)
+  @year = Movies.get_random_movie_year(search,9)
+
+  return redirect to('/winner') if @@words == []
   erb(:movies)
+end
+
+
+get ('/winner') do 
+  erb(:winner)
 end

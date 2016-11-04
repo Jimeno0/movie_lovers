@@ -1,4 +1,8 @@
+
+
 <h1>Qué película es del año <%=@year.to_s %>?</h1>
+<h2>Score: <%=@score %></h2>
+<a href="/movies" id="nextId"	style="display:none">Next question</a>
 <input type="hidden" id="yearId" value=<%=@year %>>
 <div>
 	<% @movies.each do |movie| %>
@@ -11,9 +15,11 @@
 <script type="text/javascript">
 	function check_if_correct(value) {
 		var year = document.getElementById("yearId").value
-		// debugger
+		debugger
 		if (year === String(value)) {
 			alert("Correct!")
+			var link = document.getElementById("nextId");
+			link.style.display = '';
 		}
 		else{
 			alert("Incorrect,try again")
