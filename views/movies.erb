@@ -1,6 +1,22 @@
-
+<h1>Qué película es del año <%=@year.to_s %>?</h1>
+<input type="hidden" id="yearId" value=<%=@year %>>
 <div>
-<% @movies.each do |movie| %>
-  <img src=<%=movie[:poster] %> style="width: 200px;height: auto;" alt=<%=movie[:name]%>>
-<% end %>
+	<% @movies.each do |movie| %>
+		<button onclick="check_if_correct(<%=movie[:year] %>)">>
+		  <img src=<%=movie[:poster] %> style="width: 200px;height: auto;" alt=<%=movie[:name]%>>
+	  </button>
+	<% end %>
 </div>
+
+<script type="text/javascript">
+	function check_if_correct(value) {
+		var year = document.getElementById("yearId").value
+		// debugger
+		if (year === String(value)) {
+			alert("Correct!")
+		}
+		else{
+			alert("Incorrect,try again")
+		}
+	}
+</script>
